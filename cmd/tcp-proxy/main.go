@@ -60,7 +60,7 @@ func main() {
     }
 	config := &tls.Config{Certificates: []tls.Certificate{cer}}
 
-    listener, err := tls.Listen("tcp", localAddr, config) 
+    listener, err := tls.Listen("tcp", *localAddr, config) 
 	if err != nil {
 		logger.Warn("Failed to open local port to listen: %s", err)
 		os.Exit(1)
