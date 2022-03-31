@@ -28,7 +28,7 @@ type Proxy struct {
 
 // New - Create a new Proxy instance. Takes over local connection passed in,
 // and closes it when finished.
-func New(lconn *net.TCPConn, laddr, raddr *net.TCPAddr) *Proxy {
+func New(lconn net.Conn, laddr, raddr *net.TCPAddr) *Proxy {
 	return &Proxy{
 		lconn:  lconn,
 		laddr:  laddr,
@@ -42,7 +42,7 @@ func New(lconn *net.TCPConn, laddr, raddr *net.TCPAddr) *Proxy {
 // NewTLSUnwrapped - Create a new Proxy instance with a remote TLS server for
 // which we want to unwrap the TLS to be able to connect without encryption
 // locally
-func NewTLSUnwrapped(lconn *net.TCPConn, laddr, raddr *net.TCPAddr, addr string) *Proxy {
+func NewTLSUnwrapped(lconn net.Conn, laddr, raddr *net.TCPAddr, addr string) *Proxy {
 	p := New(lconn, laddr, raddr)
 	p.tlsUnwrapp = true
 	p.tlsAddress = addr
@@ -64,7 +64,7 @@ func (p *Proxy) Start() {
 		conf := &tls.Config{
 			InsecureSkipVerify: true,
 	   	}
-		p.rconn, err = tls.Dial("tcp", p.tlsAddress, config)
+		p.rconn, err = tls.Dial("tcp", p.tlsAddress, conf)
 	} else {
 		p.rconn, err = net.DialTCP("tcp", nil, p.raddr)
 	}
