@@ -53,7 +53,7 @@ func main() {
 	// listener, err := net.ListenTCP("tcp", laddr)
 
 	// Path for key and certificate of proxy machine
-	cer, err := tls.LoadX509KeyPair("/Users/ashutsi3/server.crt", "/Users/ashutsi3/server.key") 
+	cer, err := tls.LoadX509KeyPair("/home/cisco/Desktop/TLS-Proxy-main/cmd/tcp-proxy/proxy.crt", "/home/cisco/Desktop/TLS-Proxy-main/cmd/tcp-proxy/proxy.key") 
     if err != nil {
         logger.Warn("Failed to load key pair: %s", err)
 		os.Exit(1)
